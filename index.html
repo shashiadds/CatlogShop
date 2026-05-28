@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>एरो आणि सायबर — परस्परसंवादी कॅटलॉग (Aero & Cyber)</title>
+  <meta name="description" content="Explore and customize premium home furniture and state-of-the-art electronics. Arrange items in your virtual room, compare specifications, and find your perfect setup.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-furniture">
+
+  <!-- 1. SPLASH SCREEN (ENTRY GATE) -->
+  <section id="splash-screen" role="region" aria-label="Catalog Entryway">
+    <div id="splash-split-furniture" class="splash-split splash-furniture" tabindex="0">
+      <div class="splash-content">
+        <span class="splash-badge">आर्टिसन क्राफ्ट (Artisan Craft)</span>
+        <h2 class="splash-title">फर्निचर दालन <br><span style="font-size: 1.5rem; font-weight:300;">(Furniture Pavilion)</span></h2>
+        <p class="splash-desc">नैसर्गिक लाकूड, मऊ कापड आणि उत्कृष्ट डिझाईन्स असलेले फर्निचर दालन.</p>
+        <button id="enter-furniture-btn" class="splash-btn" aria-label="Enter Furniture Pavilion">
+          संग्रह पहा (Explore)
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="splash-split-electronics" class="splash-split splash-electronics" tabindex="0">
+      <div class="splash-content">
+        <span class="splash-badge">नेक्स्ट-जेन टेक (Next-Gen Tech)</span>
+        <h2 class="splash-title">इलेक्ट्रॉनिक्स लॅब <br><span style="font-size: 1.5rem; font-weight:300;">(Tech Lab)</span></h2>
+        <p class="splash-desc">आधुनिक स्क्रीन्स, मेकॅनिकल कीबोर्ड्स आणि दर्जेदार ऑडिओ सिस्टीम्स.</p>
+        <button id="enter-electronics-btn" class="splash-btn" aria-label="Enter Tech Lab">
+          सेटअप करा (Configure)
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. MAIN APPLICATION CONTENT -->
+  <div id="app-container">
+    
+    <!-- STICKY HEADER -->
+    <header>
+      <div class="brand">
+        <span id="brand-icon" style="font-size: 1.5rem;">🛋️</span>
+        <h1 id="brand-logo-text" class="brand-title" data-translate="brandName">एरो आणि सायबर (AERO & CYBER)</h1>
+      </div>
+      
+      <!-- Pavilion Navigation Tabs -->
+      <nav class="nav-tabs" aria-label="Shop Navigation">
+        <button id="tab-furniture" class="tab-btn active" data-pavilion="furniture" aria-selected="true" role="tab" data-translate="furnitureTab">
+          <span>🛋️</span> फर्निचर विभाग (Furniture)
+        </button>
+        <button id="tab-electronics" class="tab-btn" data-pavilion="electronics" aria-selected="false" role="tab" data-translate="techTab">
+          <span>💻</span> इलेक्ट्रॉनिक्स विभाग (Tech)
+        </button>
+      </nav>
+
+      <!-- Utility Actions -->
+      <div class="header-actions">
+        <!-- Language Selector Toggle -->
+        <div class="theme-toggle-container">
+          <button id="btn-lang-en" class="toggle-mode-btn" aria-label="English Language">ENG</button>
+          <button id="btn-lang-mr" class="toggle-mode-btn active" aria-label="Marathi Language">मराठी</button>
+        </div>
+
+        <!-- Light / Dark Mode Toggle -->
+        <div class="theme-toggle-container">
+          <button id="btn-theme-light" class="toggle-mode-btn active" aria-label="Light Mode" data-translate="lightMode">☀️ प्रकाश (Light)</button>
+          <button id="btn-theme-dark" class="toggle-mode-btn" aria-label="Dark Mode" data-translate="darkMode">🌙 अंधार (Dark)</button>
+        </div>
+
+        <!-- Cart Trigger -->
+        <button id="header-cart-trigger" class="icon-btn" aria-label="Shopping Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span id="cart-badge" class="badge-count">0</span>
+        </button>
+
+        <!-- Admin Settings Trigger -->
+        <button id="header-settings-trigger" class="icon-btn" aria-label="Admin Settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- SHOP CATALOG INTERFACE -->
+    <main id="shop-main-view">
+      
+      <!-- Filters Sidebar -->
+      <aside class="filter-sidebar" aria-label="Catalog Filters">
+        <!-- Search bar -->
+        <div class="filter-section">
+          <h3 class="filter-title" data-translate="searchTitle">शोधा (Search)</h3>
+          <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="कॅटलॉग शोधा (Search)..." aria-label="Search catalog input" data-translate="searchPlaceholder">
+          </div>
+        </div>
+
+        <!-- Subcategories Checklist -->
+        <div class="filter-section">
+          <h3 class="filter-title" data-translate="categoryTitle">वर्गवारी (Category)</h3>
+          <ul id="subcategory-filter-list" class="filter-list">
+            <!-- Dynamic Subcategories loaded here -->
+          </ul>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-section">
+          <h3 class="filter-title" data-translate="budgetTitle">बजेट मर्यादा (Budget)</h3>
+          <div class="price-range">
+            <input type="range" id="price-range-slider" class="price-slider" min="5000" max="250000" step="5000" value="250000" aria-label="Price ceiling filter slider">
+            <div class="price-labels">
+              <span>₹५,०००</span>
+              <span id="price-range-max-label" data-translate="maxBudgetPrefix">कमाल: ₹२,५०,०००</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="reset-filters-btn" class="canvas-ctrl-btn" style="width: 100%; font-weight: bold; padding: 0.8rem;" aria-label="Reset all search filters" data-translate="resetFilters">
+          फिल्टर्स काढा (Reset)
+        </button>
+      </aside>
+
+      <!-- Dynamic Product Grid -->
+      <section class="catalog-content" aria-label="Product Showcase">
+        <div class="catalog-header">
+          <span id="catalog-results-count" class="results-count" data-translate="resultsCount">कॅटलॉग लोड होत आहे...</span>
+          <select id="sort-dropdown" class="sort-select" aria-label="Sort products dropdown">
+            <option value="featured" data-translate="sortFeatured">वैशिष्ट्यीकृत (Featured First)</option>
+            <option value="price-low" data-translate="sortLowHigh">किंमत: कमी ते जास्त</option>
+            <option value="price-high" data-translate="sortHighLow">किंमत: जास्त ते कमी</option>
+            <option value="rating" data-translate="sortRating">उत्कृष्ट रेटिंग (Top Rated)</option>
+          </select>
+        </div>
+        
+        <div id="product-grid" class="product-grid">
+          <!-- Dynamic product cards render here -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Virtual Room Visualizer Section -->
+    <main id="visualizer-panel" class="main" style="max-width: 1600px; width: 100%; margin: 0 auto;">
+      <div class="catalog-header" style="grid-column: 1 / -1; width: 100%; margin-bottom: -1rem;">
+        <div>
+          <h2 style="font-size: 1.75rem;" data-translate="roomVisualizerTitle">परस्परसंवादी रूम डिझायनर (Room Visualizer)</h2>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);" data-translate="roomVisualizerSubtitle">खोलीत वस्तू ठेवून स्वतःच्या जागेचे डिझाईन स्वतः बनवा.</p>
+        </div>
+      </div>
+      
+      <div class="visualizer-layout" style="width: 100%;">
+        <!-- Workspace Canvas -->
+        <div class="canvas-container-box">
+          <canvas id="visualizer-canvas" width="800" height="600"></canvas>
+        </div>
+
+        <!-- Sidebar Tools -->
+        <aside class="visualizer-sidebar" aria-label="Visualizer Controls">
+          <!-- Room Presets -->
+          <div class="filter-section">
+            <h3 class="filter-title" data-translate="roomBgTitle">१. खोलीची बॅकग्राउंड निवडा</h3>
+            <div class="visualizer-preset-rooms">
+              <button id="room-preset-office" class="preset-room-btn active" data-room="office">होम ऑफिस (Office)</button>
+              <button id="room-preset-living" class="preset-room-btn" data-room="living-room">दिवाणखाना (Living)</button>
+            </div>
+          </div>
+
+          <!-- Component Customizer actions -->
+          <div id="active-item-controls" class="active-item-controls hidden">
+            <h3 class="filter-title" style="margin-bottom: 0.5rem; border: none; padding:0;" data-translate="roomEditTitle">२. वस्तूचे संपादन करा</h3>
+            
+            <div class="slider-container">
+              <label for="item-scale-slider" data-translate="roomScale">आकारमान (Scale)</label>
+              <input type="range" id="item-scale-slider" class="size-slider" min="0.3" max="2.0" step="0.05" value="1.0" aria-label="Scale selected item slider">
+            </div>
+
+            <div class="control-btn-grid">
+              <button id="btn-item-flip" class="canvas-ctrl-btn" aria-label="Flip item horizontally" data-translate="roomFlip">
+                फिरवा ⇄ (Flip)
+              </button>
+              <button id="btn-item-delete" class="canvas-ctrl-btn danger-btn" aria-label="Delete item from room" data-translate="roomDelete">
+                काढा 🗑️ (Delete)
+              </button>
+              <button id="btn-item-layer-up" class="canvas-ctrl-btn" aria-label="Bring item forward" data-translate="roomLayerUp">
+                पुढे आणा ▲
+              </button>
+              <button id="btn-item-layer-down" class="canvas-ctrl-btn" aria-label="मागे पाठवा ▼" data-translate="roomLayerDown">
+                मागे पाठवा ▼
+              </button>
+            </div>
+          </div>
+
+          <!-- Add products palette -->
+          <div class="canvas-draggable-palette">
+            <h3 class="filter-title" style="margin-bottom: 0.5rem; border: none; padding:0;" data-translate="roomAddTitle">३. वस्तू जोडा (Add)</h3>
+            <div id="visualizer-palette-list" class="canvas-draggable-list">
+              <!-- Draggable items rendered here -->
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto;">
+            <button id="export-canvas-btn" class="checkout-btn" aria-label="Export room drawing as image" data-translate="roomDownload">
+              📥 डिझाईन डाऊनलोड करा
+            </button>
+            <button id="clear-canvas-btn" class="canvas-ctrl-btn danger-btn" aria-label="Clear all canvas items" data-translate="roomReset">
+              रीसेट करा (Reset)
+            </button>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- 3. FLOATING COMPLEMENTARY CONTROLS -->
+  <div id="floating-menu" class="floating-bar">
+    <button id="float-view-catalog" class="floating-action-btn active" aria-label="View Product Catalog" data-translate="floatCatalog">
+      🛍️ शॉप कॅटलॉग
+    </button>
+    <button id="float-view-visualizer" class="floating-action-btn" aria-label="Open Room Builder Visualizer" data-translate="floatDesigner">
+      🎨 रूम डिझायनर
+    </button>
+    <button id="float-launch-quiz" class="floating-action-btn" aria-label="Launch Setup Quiz Advisor" data-translate="floatQuiz">
+      ✨ अचूक सेटअप शोधा
+    </button>
+  </div>
+
+  <!-- 4. SLIDE OUT SHOPPING CART DRAWER -->
+  <div id="cart-drawer-overlay"></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Shopping Cart Drawer">
+    <div class="cart-header">
+      <h2 data-translate="cartTitle">खरेदी कार्ट (Shopping Cart)</h2>
+      <button id="close-cart-btn" class="close-cart-btn" aria-label="Close cart drawer">✕</button>
+    </div>
+
+    <!-- Scrollable Items Area -->
+    <div id="cart-items-container" class="cart-items-container">
+      <!-- Dynamic cart items render here -->
+    </div>
+
+    <!-- Cart Totals & Checkout -->
+    <div class="cart-footer">
+      <div class="promo-form">
+        <input type="text" id="promo-code-input" class="promo-input" placeholder="डिस्काउंट कूपन कोड (WELCOME10)" aria-label="Promo code input text field" data-translate="couponPlaceholder">
+        <button id="apply-promo-btn" class="promo-btn" aria-label="Apply promo code" data-translate="couponApply">लागू करा (Apply)</button>
+      </div>
+      <div id="promo-status-message" class="promo-status-msg"></div>
+
+      <div class="cart-summary-line">
+        <span data-translate="cartSubtotal">उप-एकूण (Subtotal)</span>
+        <span id="cart-subtotal">₹०.००</span>
+      </div>
+      <div id="cart-discount-row" class="cart-summary-line" style="display: none; color: #16A34A;">
+        <span id="cart-discount-label" data-translate="cartDiscount">सवलत (WELCOME10)</span>
+        <span id="cart-discount-value">-₹०.००</span>
+      </div>
+      <div class="cart-summary-line">
+        <span data-translate="cartTax">विक्री कर (Tax 8%)</span>
+        <span id="cart-tax">₹०.००</span>
+      </div>
+      <div class="cart-summary-line total">
+        <span data-translate="cartTotal">एकूण देय रक्कम (Total)</span>
+        <span id="cart-total">₹०.००</span>
+      </div>
+      <button id="cart-checkout-btn" class="checkout-btn" aria-label="Proceed to checkout mock order" data-translate="cartCheckout">
+        खरेदी पूर्ण करा (Checkout)
+      </button>
+    </div>
+  </aside>
+
+  <!-- 5. FLOATING COMPARISON DOCK & TABLE -->
+  <aside id="compare-dock" aria-label="Comparison Dock">
+    <div class="compare-dock-header">
+      <span data-translate="compareTitle">वस्तूंची तुलना करा (Compare) (<span id="compare-count">0</span>/3)</span>
+      <button id="compare-clear-btn" style="background:none; border:none; text-decoration:underline; font-size:0.75rem; cursor:pointer;" data-translate="compareClear">साफ करा</button>
+    </div>
+    <div id="compare-dock-items" class="compare-dock-items">
+      <!-- Comparative slots filled dynamically -->
+    </div>
+    <div class="compare-dock-actions">
+      <button id="compare-submit-btn" class="compare-submit-btn" aria-label="Open side-by-side comparison screen" data-translate="compareBtn">
+        निवडलेल्या वस्तूंची तुलना करा
+      </button>
+    </div>
+  </aside>
+
+  <!-- Side by side detailed comparison overlay screen -->
+  <div id="compare-overlay">
+    <div class="compare-screen-wrap">
+      <div class="compare-screen-header">
+        <h2 data-translate="compareScreenTitle">उत्पादनांची सविस्तर तुलना (Comparison)</h2>
+        <button id="close-compare-overlay-btn" class="close-dialog-btn" style="position:static;" aria-label="Close comparison overlay">✕</button>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr id="compare-table-headers">
+            <!-- Headers render here -->
+          </tr>
+        </thead>
+        <tbody id="compare-table-body">
+          <!-- Specs row render here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6. ADVISOR MATCHMAKER QUIZ SYSTEM MODAL -->
+  <div id="quiz-overlay"></div>
+  <section id="quiz-section" role="dialog" aria-modal="true" aria-label="Setup Recommendation Quiz">
+    <div class="quiz-header">
+      <h2 style="font-size: 1.15rem;" data-translate="quizTitle">तुमचा आवडता रूम सेटअप शोधा</h2>
+      <button id="quiz-close-btn" class="quiz-close-btn" aria-label="Close quiz dialog">✕</button>
+    </div>
+    <div class="quiz-progress-bar">
+      <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+    </div>
+    <div id="quiz-body" class="quiz-body">
+      <!-- Question cards injected dynamically -->
+    </div>
+    <div class="quiz-footer">
+      <button id="quiz-back-btn" class="quiz-nav-btn" aria-label="Previous quiz question" data-translate="quizBack">मागे (Back)</button>
+      <button id="quiz-next-btn" class="quiz-nav-btn primary-btn" aria-label="Next quiz question" data-translate="quizNext">पुढे (Next)</button>
+    </div>
+  </section>
+
+  <!-- 7. QUICK VIEW MODAL (DIALOG PATTERN) -->
+  <dialog id="quick-view-dialog" class="quick-view-dialog">
+    <div class="dialog-wrap">
+      <button id="close-quick-view-btn" class="close-dialog-btn" aria-label="Close quick view product details">✕</button>
+      
+      <div class="dialog-gallery">
+        <img id="dialog-image" class="dialog-main-img custom-hue-filtered" src="" alt="Product Detail Close-up Preview">
+      </div>
+      
+      <div class="dialog-details">
+        <div>
+          <span id="dialog-subcategory" class="card-subcategory">बैठक व्यवस्था</span>
+          <h2 id="dialog-title" class="dialog-title">Aero Lounge Chair</h2>
+          <div class="card-rating-wrap" style="margin: 0.5rem 0 0 0;">
+            <span id="dialog-stars" class="star-rating">★★★★★</span>
+            <span id="dialog-reviews" style="font-size: 0.75rem;">(142 reviews)</span>
+          </div>
+        </div>
+        
+        <p id="dialog-desc" class="card-desc" style="-webkit-line-clamp: unset;">
+          Detailed information about the product properties and manufacturing quality standards...
+        </p>
+
+        <!-- Product Customizer Swatches -->
+        <div id="dialog-customization-area" style="display:flex; flex-direction:column; gap:0.5rem;">
+          <!-- Swatches and finishes loaded here dynamically -->
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; border-top:1px solid var(--border-color); padding-top:1rem;">
+          <div style="display:flex; flex-direction:column;">
+            <span class="dialog-section-title">किंमत</span>
+            <span id="dialog-price" class="dialog-price">₹०.००</span>
+          </div>
+          <button id="dialog-add-to-cart-btn" class="add-to-cart-action-btn" aria-label="Add custom product configuration to cart">
+            कार्टमध्ये जोडा 🛍️
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- PASSCODE CONFIRMATION MODAL -->
+  <dialog id="admin-passcode-dialog" class="passcode-dialog">
+    <form id="admin-passcode-form" class="passcode-form" method="dialog">
+      <h3 class="passcode-title">Admin Access Required</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary);">Please enter your admin passcode to access settings.</p>
+      
+      <div class="admin-form-group">
+        <input type="password" id="admin-passcode-input" class="admin-input" placeholder="Enter Passcode (Default: 1234)" required autocomplete="current-password">
+      </div>
+      
+      <div class="passcode-error" id="admin-passcode-error">Incorrect passcode. Please try again.</div>
+      
+      <div class="admin-actions-row" style="margin-top: 0.5rem; justify-content: flex-end;">
+        <button type="button" id="admin-passcode-cancel" class="canvas-ctrl-btn">Cancel</button>
+        <button type="submit" class="checkout-btn" style="padding: 0.5rem 1.5rem;">Verify</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ADMIN SETTINGS DASHBOARD DIALOG -->
+  <dialog id="admin-settings-dialog" class="admin-dialog">
+    <div class="admin-dialog-wrap">
+      <!-- Sidebar navigation inside modal -->
+      <aside class="admin-sidebar">
+        <h2>Settings Panel</h2>
+        <button id="admin-tab-general" class="admin-tab-btn active" data-tab="general">⚙️ Store Settings</button>
+        <button id="admin-tab-manage" class="admin-tab-btn" data-tab="manage">📦 Manage Products</button>
+        <button id="admin-tab-add" class="admin-tab-btn" data-tab="add">➕ Add New Product</button>
+        
+        <!-- Bottom operations -->
+        <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.5rem; width: 100%; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+          <button id="admin-btn-save-preview" class="checkout-btn" style="font-size: 0.85rem; padding: 0.6rem;">💾 Save & Preview</button>
+          <button id="admin-btn-export" class="canvas-ctrl-btn" style="font-size: 0.85rem; padding: 0.6rem; border-color: var(--accent-primary); color: var(--accent-primary);">📥 Export products.js</button>
+          <button id="admin-btn-reset" class="canvas-ctrl-btn danger-btn" style="font-size: 0.85rem; padding: 0.6rem;">🔄 Reset to Default</button>
+          <button id="admin-btn-close" class="canvas-ctrl-btn" style="font-size: 0.85rem; padding: 0.6rem;">Close Panel</button>
+        </div>
+      </aside>
+
+      <!-- Content panels -->
+      <div class="admin-content">
+        <!-- 1. GENERAL SETTINGS PANEL -->
+        <section id="admin-panel-general" class="admin-panel-section">
+          <h2 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Store Profile & Preferences</h2>
+          
+          <div class="admin-form-group">
+            <label for="admin-store-name-en">Store Name (English)</label>
+            <input type="text" id="admin-store-name-en" class="admin-input" placeholder="e.g. Aero & Cyber">
+          </div>
+          
+          <div class="admin-form-group">
+            <label for="admin-store-name-mr">Store Name (Marathi / मराठी)</label>
+            <input type="text" id="admin-store-name-mr" class="admin-input" placeholder="उदा. एरो आणि सायबर">
+          </div>
+
+          <div class="admin-form-group">
+            <label for="admin-store-lang">Default Language</label>
+            <select id="admin-store-lang" class="admin-select">
+              <option value="en">English (ENG)</option>
+              <option value="mr">Marathi (मराठी)</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- 2. MANAGE PRODUCTS PANEL -->
+        <section id="admin-panel-manage" class="admin-panel-section" style="display: none;">
+          <h2 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Product Inventory</h2>
+          <div id="admin-products-list" class="admin-product-list-container">
+            <!-- Dynamic list of products loaded here -->
+          </div>
+        </section>
+
+        <!-- 3. ADD/EDIT PRODUCT PANEL -->
+        <section id="admin-panel-add" class="admin-panel-section" style="display: none;">
+          <h2 id="admin-add-panel-title" style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Create New Product</h2>
+          
+          <form id="admin-product-form">
+            <!-- Hidden input to track if editing an existing product ID -->
+            <input type="hidden" id="admin-product-edit-id" value="">
+            
+            <div class="admin-flex-row">
+              <div class="admin-form-group" style="flex: 2;">
+                <label for="admin-prod-name">Product Name *</label>
+                <input type="text" id="admin-prod-name" class="admin-input" placeholder="e.g. Deluxe Smart Desk" required>
+              </div>
+              <div class="admin-form-group" style="flex: 1;">
+                <label for="admin-prod-price">Price (INR ₹) *</label>
+                <input type="number" id="admin-prod-price" class="admin-input" placeholder="e.g. 45000" min="0" required>
+              </div>
+            </div>
+
+            <div class="admin-flex-row">
+              <div class="admin-form-group" style="flex: 1;">
+                <label for="admin-prod-category">Pavilion / Category *</label>
+                <select id="admin-prod-category" class="admin-select" required>
+                  <option value="furniture">🛋️ Furniture Pavilion</option>
+                  <option value="electronics">💻 Electronics Lab</option>
+                </select>
+              </div>
+              <div class="admin-form-group" style="flex: 1;">
+                <label for="admin-prod-subcategory">Subcategory *</label>
+                <input type="text" id="admin-prod-subcategory" class="admin-input" placeholder="e.g. Seating, Displays, Audio" required>
+              </div>
+            </div>
+
+            <div class="admin-flex-row">
+              <div class="admin-form-group" style="flex: 1;">
+                <label for="admin-prod-badge">Badge (Optional)</label>
+                <input type="text" id="admin-prod-badge" class="admin-input" placeholder="e.g. Best Seller, New, Premium">
+              </div>
+              <div class="admin-form-group" style="flex: 1; justify-content: center; align-items: flex-start; padding-top: 1.5rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-weight: normal;">
+                  <input type="checkbox" id="admin-prod-highlight" style="width: 18px; height: 18px;">
+                  Highlight Product (Show in visuals/featured)
+                </label>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="admin-prod-desc-en">Product Description (English) *</label>
+              <textarea id="admin-prod-desc-en" class="admin-textarea" placeholder="Provide detailed explanation of product comfort, quality and dimensions..." required></textarea>
+            </div>
+
+            <div class="admin-form-group">
+              <label for="admin-prod-desc-mr">Product Description (Marathi / मराठी - Simple translation) *</label>
+              <textarea id="admin-prod-desc-mr" class="admin-textarea" placeholder="उत्पादनाची माहिती सोप्या भाषेत लिहा..." required></textarea>
+            </div>
+
+            <div class="admin-flex-row" style="align-items: flex-start;">
+              <div class="admin-form-group" style="flex: 1;">
+                <label for="admin-prod-image-file">Upload Image</label>
+                <input type="file" id="admin-prod-image-file" class="admin-input" accept="image/*" style="padding: 0.5rem;">
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Images are scaled down & optimized locally to load fast.</p>
+              </div>
+              <div class="admin-form-group" style="align-items: center;">
+                <label>Image Preview</label>
+                <div class="admin-img-preview-box">
+                  <img id="admin-prod-image-preview" src="" style="display: none;" alt="Preview image">
+                  <div id="admin-prod-image-placeholder" class="admin-img-preview-placeholder">No Image Selected</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Specifications (Key: Value)</span>
+                <button type="button" id="admin-spec-add-btn" class="canvas-ctrl-btn" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">+ Add Specification</button>
+              </label>
+              <div id="admin-specs-container">
+                <!-- Specifications key-value inputs injected dynamically -->
+              </div>
+            </div>
+
+            <div class="admin-actions-row" style="justify-content: flex-end; margin-top: 1.5rem; gap: 1rem;">
+              <button type="button" id="admin-product-cancel-btn" class="canvas-ctrl-btn">Cancel</button>
+              <button type="submit" id="admin-product-submit-btn" class="checkout-btn" style="padding: 0.6rem 2rem;">Save Product</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- App Entry Code Orchestration -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
