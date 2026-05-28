@@ -1,4 +1,4 @@
-import { products, rooms, loadProductsFromSheet, generateProductsJsString } from "./products.js";
+import { products, rooms, generateProductsJsString } from "./products.js";
 import { cart } from "./cart.js";
 import { compare } from "./compare.js";
 import { quizQuestions, calculateRecommendations } from "./quiz.js";
@@ -152,14 +152,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Apply brand name from config
   applyConfigBranding();
 
-  // Try Google Sheet dynamic load
-  if (CONFIG.useGoogleSheets && CONFIG.spreadsheetId) {
-    const success = await loadProductsFromSheet(CONFIG.spreadsheetId);
-    if (success) {
-      // Re-init filters for new product categories
-      renderFilters();
-    }
-  }
 
   // Initial language setup
   setLanguage(currentLanguage);
